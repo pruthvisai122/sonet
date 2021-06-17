@@ -1,0 +1,56 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>AJAX</title>
+
+    <script>
+        // create a request
+        var request = new XMLHttpRequest();
+        request.open("GET", "https://api.openweathermap.org/data/2.5/weather?q=hyderabad&appid=93f26e3c57081a6210de53b8dcfdfea4", true);
+        request.onload = function() {
+            if (request.status >= 200 && request.status < 400) {
+                var data = JSON.parse(request.responseText);
+                console.log(data);
+                document.getElementById('temp').innerHTML = data.main.temp;
+                document.getElementById('weather').innerHTML = data.weather[0].description;
+                var icon = data.weather[0].icon + ".png";
+                document.getElementById('myimg').src = "https://openweathermap.org/img/w/" + icon;
+            } else {
+                console.log("some error");
+            }
+        };
+        request.onerror = function() {
+            console.log("connection error");
+        };
+        request.send();
+
+
+
+        // response
+        //parse the response
+        //manage error
+        // send the request
+    </script>
+
+
+
+</head>
+
+<body>
+
+
+    <h1> Hey there , here is AJAX! </h1>
+
+
+    <h2 id="temp"> Temp here </h2>
+    <h2 id="weather"> Weather here </h2>
+    <img id="myimg" src="img.png" alt="weatherimagehere" />
+
+
+</body>
+
+</html>
